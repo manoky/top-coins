@@ -1,8 +1,10 @@
 # Getting started
 
 clone this project and run the commands below.
-add a `.env` file and add your api key to`REACT_APP_API_KEY`
-refer to the `.env.example` file
+
+> add a `.env` file and add your api key to `REACT_APP_API_KEY`
+
+> refer to the `.env.example` file
 
 ```sh
    $ npm install
@@ -10,14 +12,16 @@ refer to the `.env.example` file
 ```
 
 Alternatively you can run the docker container:
-do not forget to add your api key to`REACT_APP_API_KEY`
-in the `docker-compose.yml` file.
+
+> do not forget to add your api key to `REACT_APP_API_KEY` in the `docker-compose.yml` file.
 
 ```sh
     $ docker-compose up
     # or to run in the background
     $ docker-compose up -d
 ```
+
+> Then navigate to `http://localhost:3000`
 
 To run tests
 
