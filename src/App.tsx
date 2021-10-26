@@ -4,6 +4,7 @@ import { Route, BrowserRouter, Switch } from "react-router-dom";
 import Table from "./components/Table";
 import NavigationBar from "./components/NavigationBar";
 import NavDrawer from "./components/NavDrawer";
+import { Chart } from "./components/Chart";
 import { CoinDataProps } from "./types";
 import { parseCoinData } from "./utils";
 
@@ -59,6 +60,9 @@ const App = () => {
         <div className="inner-app">
           <NavDrawer isOpen={isOpen} toggleDrawer={toggleDrawer} />
           <Switch>
+            <Route path="/liquidity">
+              <Chart coinsData={data} />
+            </Route>
             <Route path="/">
               <Table data={data} />
             </Route>
