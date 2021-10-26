@@ -1,1 +1,1 @@
-export * from './DestopTable'
+export * from './DesktopTable'

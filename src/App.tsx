@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
+import { Route, BrowserRouter, Switch } from "react-router-dom";
 import Table from "./components/Table";
+import NavigationBar from "./components/NavigationBar";
+import NavDrawer from "./components/NavDrawer";
 import { CoinDataProps } from "./types";
 import { parseCoinData } from "./utils";
 
@@ -20,6 +23,11 @@ const AppWrapper = styled("div")(() => ({
 
 const App = () => {
   const [data, setData] = useState<CoinDataProps[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDrawer = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     const fetchCoins = async () => {
@@ -46,9 +54,17 @@ const App = () => {
 
   return (
     <AppWrapper>
-      <div className="inner-app">
-        <Table data={data} />
-      </div>
+      <BrowserRouter>
+        <NavigationBar toggleDrawer={toggleDrawer} />
+        <div className="inner-app">
+          <NavDrawer isOpen={isOpen} toggleDrawer={toggleDrawer} />
+          <Switch>
+            <Route path="/">
+              <Table data={data} />
+            </Route>
+          </Switch>
+        </div>
+      </BrowserRouter>
     </AppWrapper>
   );
 };
