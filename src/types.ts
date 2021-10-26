@@ -14,3 +14,8 @@ export interface StateProps {
     error: string
 }
 
+export enum ActionTypes {
+    SET_ERROR = 'SET_ERROR',
+    SET_COINS = 'SET_COINS',
+    SET_LOADING ='SET_LOADING'
+}

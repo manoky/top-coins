@@ -10,21 +10,18 @@ import {
   Cell,
 } from "recharts";
 import Card from "@mui/material/Card";
-import { CoinDataProps } from "../../types";
 import { convertPrice } from "../../utils";
 import CustomToolTip from "./CustomToolTip";
 import { colors } from "./colors";
+import { useStateContext } from "../../contexts/state";
 
-// would move this into a separate file
-// but left here since it's only used here
+const Chart = (): JSX.Element => {
+  const {
+    state: { coinsData },
+  } = useStateContext();
 
-interface ChartProps {
-  coinsData: CoinDataProps[];
-}
-
-const Chart = ({ coinsData }: ChartProps): JSX.Element => {
   const chartData = coinsData
-    .sort((a: any, b: any) => a.rank - b.rank)
+    .sort((a, b) => a.rank - b.rank)
     .map((data: any) => ({
       name: data.name,
       marketcap: data.market_cap,
@@ -80,7 +77,7 @@ const Chart = ({ coinsData }: ChartProps): JSX.Element => {
               cursor={{ strokeDasharray: "3 3" }}
             />
             <Scatter name="Coin data" data={chartData} fill="#8884d8">
-              {chartData.map((entry: any, index: number) => (
+              {chartData.map((entry, index: number) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={colors[index % colors.length]}

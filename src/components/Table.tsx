@@ -2,16 +2,20 @@ import React from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { DesktopTable } from "./DesktopTable";
 import { MobileTable } from "./MobileTable";
-import { CoinDataProps } from "../types";
+import { useStateContext } from "../contexts/state";
 
-const Table = ({ data }: { data: CoinDataProps[] }) => {
+const Table = () => {
+  const {
+    state: { coinsData },
+  } = useStateContext();
+
   const isMobileWidth = useMediaQuery("(max-width:768px)");
   return (
     <div>
       {isMobileWidth ? (
-        <MobileTable coinsData={data} />
+        <MobileTable coinsData={coinsData} />
       ) : (
-        <DesktopTable coinsData={data} />
+        <DesktopTable coinsData={coinsData} />
       )}
     </div>
   );
