@@ -6,6 +6,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Table from "./components/Table";
 import NavigationBar from "./components/NavigationBar";
 import NavDrawer from "./components/NavDrawer";
+import SelectField from "./components/SelectField";
 import { Chart } from "./components/Chart";
 import Notification from "./components/Notification";
 import { parseCoinData } from "./utils";
@@ -21,7 +22,7 @@ const AppWrapper = styled("div")(() => ({
 
   "& .inner-app": {
     maxWidth: "1200px",
-    margin: "40px auto",
+    margin: "60px auto",
     padding: "0 5px",
     height: "100%",
   },
@@ -29,6 +30,7 @@ const AppWrapper = styled("div")(() => ({
 
 const App = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [limit, setLimit] = useState("all");
 
   const {
     state: { loading, error },
@@ -40,10 +42,12 @@ const App = () => {
   };
 
   useEffect(() => {
+    const query = limit !== "all" ? `?limit=${limit}` : "";
+
     const fetchCoins = async () => {
       dispatch(setLoading(true));
       try {
-        const response = await fetch(URL, {
+        const response = await fetch(URL + query, {
           headers: {
             Accept: "application/json",
             "X-CMC_PRO_API_KEY": API_KEY,
@@ -66,7 +70,7 @@ const App = () => {
       }
     };
     fetchCoins();
-  }, [dispatch]);
+  }, [dispatch, limit]);
 
   return (
     <AppWrapper>
@@ -93,6 +97,7 @@ const App = () => {
                 handleClose={() => dispatch(setError(""))}
               />
               <NavDrawer isOpen={isOpen} toggleDrawer={toggleDrawer} />
+              <SelectField setLimit={setLimit} limit={limit} />
               <Switch>
                 <Route path="/liquidity">
                   <Chart />
